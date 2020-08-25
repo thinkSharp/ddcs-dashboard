@@ -17,16 +17,13 @@ import Page from 'src/components/Page';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: theme.palette.background.dark,
-    height: '100%',
-    paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(3)
+
   }
 }));
 
 const RegisterView = () => {
   const classes = useStyles();
-  const navigate = useNavigate();
+  const navigate = useNavigate();       
 
   return (
     <Page
