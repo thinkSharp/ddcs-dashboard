@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import {
   Avatar,
   Box,
-  Button,
   Divider,
   Drawer,
   Hidden,
@@ -71,6 +70,41 @@ const registrations = [
     title: 'Quality'
   },
 ];
+
+const depostories = [
+  {
+    href: '/dep/dashboard',
+    icon: BarChartIcon,
+    title: 'Depostory Dashboard'
+  },
+  {
+    href: '/dep/add',
+    icon: PlusCircleIcon,
+    title: 'Add Subscription'
+  },
+  {
+    href: '/dep/modify',
+    icon: CheckCircleIcon,
+    title: 'Modify Subscription'
+  },
+  {
+    href: '/dep/delete',
+    icon: XCircleIcon,
+    title: 'Delete Subscription'
+  },
+  {
+    href: '/dep/profile',
+    icon: ServerIcon,
+    title: 'Profiling'
+  },
+  {
+    href: '/dep/quality',
+    icon: LayoutIcon,
+    title: 'Quality'
+  },
+];
+
+
 const items = [
   {
     href: '/app/dashboard',
@@ -180,9 +214,11 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         </List>
       </Box>
       <Divider />
+     
+  
       <Box p={2}>
         <List>
-          {items.map((item) => (
+          {depostories.map((item) => (
             <NavItem
               href={item.href}
               key={item.title}
@@ -191,8 +227,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
             />
           ))}
         </List>
-      </Box>
-    
+      </Box> 
       <Box flexGrow={1} />
       <Box
         p={2}

@@ -17,6 +17,12 @@ import RetireDataSet from './views/reg/retire';
 import ManagedDataSetProfile from './views/reg/profile';
 import ManageDataSetQuality from './views/reg/quality';
 import Modification from './views/reg/modify';
+import AddDepository from './views/dep/add';
+import ModifyDepository from './views/dep/modify';
+import DeleteDepository from './views/dep/delete';
+import DepositoryDashboard from './views/dep/dashboard';
+import DepositoryDataProfile from './views/dep/profile';
+import DepositoryDataQuality from './views/dep/quality';
 
 const routes = [
   {
@@ -30,6 +36,19 @@ const routes = [
       {path:'retire', element:<RetireDataSet />},
       {path:'datasetprofile', element:<ManagedDataSetProfile />},
       {path:'datasetquality', element:<ManageDataSetQuality />}
+    ]
+  },
+  {
+    path: 'dep',
+    element: <DashboardLayout />,
+    children:[
+      {path:'add', element: <AddDepository />},
+      {path:'modify', element: <ModifyDepository />},
+      {path:'delete', element:<DeleteDepository />},
+      {path:'dashboard', element:<DepositoryDashboard />},
+      {path:'profile', element: <DepositoryDataProfile />},
+      {path:'quality', element:<DepositoryDataQuality />}
+
     ]
   },
   {
