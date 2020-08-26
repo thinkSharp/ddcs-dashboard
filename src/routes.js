@@ -15,7 +15,7 @@ import Registration from './views/reg/register';
 import Correction from './views/reg/correction';
 import RetireDataSet from './views/reg/retire';
 import ManagedDataSetProfile from './views/reg/profile';
-import ManageDataSetQuality from './views/reg/quality';
+import ManagedDataSetQuality from './views/reg/quality';
 import Modification from './views/reg/modify';
 import AddDepository from './views/dep/add';
 import ModifyDepository from './views/dep/modify';
@@ -35,7 +35,7 @@ const routes = [
       {path:'modification', element:<Modification />},
       {path:'retire', element:<RetireDataSet />},
       {path:'datasetprofile', element:<ManagedDataSetProfile />},
-      {path:'datasetquality', element:<ManageDataSetQuality />}
+      {path:'datasetquality', element:<ManagedDataSetQuality />}
     ]
   },
   {
@@ -70,7 +70,7 @@ const routes = [
     children: [
       { path: 'login', element: <LoginView /> },
       { path: '404', element: <NotFoundView /> },
-      { path: '/', element: <Navigate to="/app/dashboard" /> },
+      { path: '/', element: <Navigate to="/reg/registration" /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   }

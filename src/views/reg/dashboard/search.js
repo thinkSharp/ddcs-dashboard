@@ -46,7 +46,7 @@ const RegistrySearch = ({ className, ...rest }) => {
                 (formik) => (
                     <Form>
                         <Card>
-                            <CardHeader title='Search Registry' />
+                            <CardHeader title='Search Catalog Registry' />
                             <Divider />
                             <CardContent>
                                 <Grid container spacing={3}>

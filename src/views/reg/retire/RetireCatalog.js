@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
@@ -13,17 +13,20 @@ import {
 } from '@material-ui/core';
 import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
+import CatalogSearchByName from '../utils/CatalogSearchByName';
 
 
 const useStyles = makeStyles(() => ({
   root: {}
 }));
 
-const RegisterDetails = ({ className, ...rest }) => {
+const RetireCatalog = ({ className, ...rest }) => {
     const classes = useStyles();
 
+    const [displaySearchResult, setDisplaySearchResult] = useState(false)
 
     const initialValues = {
+        searchResult: null,
         dataProducerName: '',
         dataProducerDepartment: '',
         dataProducerEmail: '',
@@ -302,16 +305,24 @@ const RegisterDetails = ({ className, ...rest }) => {
         }
         return html
     }
-    return (
+
+    const searchResult = (result) => {
+        let html;
+        alert('Result Found', result)
+        console.log('result', result)
+
+        if(result.found)
+        {
+            console.log('found')
+            html =
         <Formik 
          initialValues= {initialValues} validationSchema={validationSchema} onSubmit={onSubmit}
         >
             {
                 (formik) => (
-                    <Form>
+                    <>
+                        <Form>
                         <Card>
-                            <CardHeader title='Dataset Registration Form' />
-                            <Divider />
                             <CardHeader subheader='Dataset Producer Info' />
                             <Divider />
                             <CardContent>
@@ -430,7 +441,7 @@ const RegisterDetails = ({ className, ...rest }) => {
                                              <option key='' value=''>Select Dataset Source *</option>
                                              <option key='ddcs' value='ddcs'>DDCS</option>
                                              <option key='external' value='external'>External</option>
-                                             <option key='reference' value='reference'>Reference</option>
+                                             
 
                                          </TextField>
                                     </Grid>
@@ -451,20 +462,34 @@ const RegisterDetails = ({ className, ...rest }) => {
                                     color="primary"
                                     variant="contained"
                                 >
-                                    Save details
+                                    Update details
                                 </Button>
                                 </Box>
                         </Card>
                     </Form>
+                    
+                    </>
                 )
             }
         </Formik>
+        
+        }
+        console.log('html', html)
+        setDisplaySearchResult(html)
+    }
+
+    return (
+        <>
+        
+        <CatalogSearchByName title='Retire Data Catalog' onResult={searchResult}/>
+        {displaySearchResult}
+        </>
     )
 
 };
 
-RegisterDetails.propTypes = {
+RetireCatalog.propTypes = {
   className: PropTypes.string
 };
 
-export default RegisterDetails;
+export default RetireCatalog;
