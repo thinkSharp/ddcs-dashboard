@@ -13,21 +13,31 @@ import {
 } from '@material-ui/core';
 import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
+import axios from 'axios';
 
 
-const useStyles = makeStyles(() => ({
-  root: {}
-}));
+const api_gateway = 'https://ec12jexz30.execute-api.us-east-1.amazonaws.com/poc_v2/catalog/register'
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+    },
+    input: {
+      display: 'none',
+    },
+  }));
 
 const RegisterDetails = ({ className, ...rest }) => {
     const classes = useStyles();
 
-
+    
     const initialValues = {
         dataProducerName: '',
         dataProducerDepartment: '',
         dataProducerEmail: '',
-        dataProducerApplicationName: '',
+        dataProducerContact: '',
         datasetName: '',
         datasetType: '',
         databaseConnectionString: '',
@@ -43,14 +53,15 @@ const RegisterDetails = ({ className, ...rest }) => {
         datasetAccessValidationErrorMsg: '',
         datasetSource: '',
         datasetPollingCronJob: '',
-        datasetGenerationFrequency: ''
+        datasetGenerationFrequency: '',
+        sampleFile: ''
     }
     const validationSchema = Yup.object().shape(
         {
             dataProducerName: Yup.string().required('Data Producer Name is required!'),
             dataProducerDepartment: Yup.string().required('Data Producer Department is required!'),
             dataProducerEmail: Yup.string().email('Invalid Email address!').required('Email address is required'),
-            dataProducerApplicationName: Yup.string().required('required!'),
+            dataProducerContact: Yup.string().required('required!'),
             datasetName: Yup.string().required('required!'),
             datasetType: Yup.string().required('required!'),
             databaseConnectionString: Yup.mixed().when('datasetType', {is: (val) => val ==='database', then: Yup.string().required('required!')}),
@@ -70,6 +81,17 @@ const RegisterDetails = ({ className, ...rest }) => {
 
     const onSubmit= (values) => {
         alert('Form data', values)
+        console.log(values)
+        var header = {
+            headers: { 'Content-Type': 'multipart/form-data' }
+          };
+        axios.post(api_gateway, values, header)
+            .then(response => {
+                console.log(response)
+            })
+            .catch(error => {
+                console.log('error', error)
+            })
     }
 
     const datasetTypeRandering = (formik) =>{
@@ -177,7 +199,34 @@ const RegisterDetails = ({ className, ...rest }) => {
         </Grid>
     </Grid>
     <Grid container spacing={3}>
-    <Grid item  xs={12}>
+    <Grid item md={6} xs={12}>
+                <Box
+                                display="flex"
+                                justifyContent="flex-end"
+                                p={2}
+                                >
+
+                                    <TextField
+                                        error={Boolean(formik.sampleFile && formik.errors.sampleFile)}
+                                        helperText={formik.sampleFile && formik.errors.sampleFile}
+                                        name='sampleFile'
+                                        onChange={formik.handleChange}
+                                        onBlur ={formik.handleBlur}
+                                        value={formik.values.sampleFile}
+                                        className={classes.input}
+                                        id="contained-button-file"
+                                        
+                                        type="file"
+                                    />
+                                    <label htmlFor="contained-button-file">
+                                        <Button variant="contained" color="primary" component="span">
+                                        Select a file for extracting schema info 
+                                        </Button>
+                                    </label>
+                                    <label>{formik.values.sampleFile}</label>
+                                </Box>
+                </Grid>
+    <Grid item md={6} xs={12}>
                 <Box
           display="flex"
           justifyContent="flex-end"
@@ -211,7 +260,28 @@ const RegisterDetails = ({ className, ...rest }) => {
                 </Grid>
             </Grid>
             <Grid container spacing={3}>
-    <Grid item  xs={12}>
+            <Grid item md={6} xs={12}>
+                <Box
+                                display="flex"
+                                justifyContent="flex-end"
+                                p={2}
+                                >
+
+                                    <input
+                                        
+                                        className={classes.input}
+                                        id="contained-button-file"
+                                        
+                                        type="file"
+                                    />
+                                    <label htmlFor="contained-button-file">
+                                        <Button variant="contained" color="primary" component="span">
+                                        Upload Sample File to Extract Schema 
+                                        </Button>
+                                    </label>
+                                </Box>
+                </Grid>
+    <Grid item md={6} xs={12}>
                 <Box
           display="flex"
           justifyContent="flex-end"
@@ -244,8 +314,30 @@ const RegisterDetails = ({ className, ...rest }) => {
                     variant='outlined' />
                 </Grid>
                 </Grid>
+                
             <Grid container spacing={3}>
-    <Grid item  xs={12}>
+                <Grid item md={6} xs={12}>
+                <Box
+                                display="flex"
+                                justifyContent="flex-end"
+                                p={2}
+                                >
+
+                                    <input
+                                        
+                                        className={classes.input}
+                                        id="contained-button-file"
+                                        
+                                        type="file"
+                                    />
+                                    <label htmlFor="contained-button-file">
+                                        <Button variant="contained" color="primary" component="span">
+                                        Upload Sample File to Extract Schema 
+                                        </Button>
+                                    </label>
+                                </Box>
+                </Grid>
+    <Grid item md={6} xs={12}>
                 <Box
           display="flex"
           justifyContent="flex-end"
@@ -302,6 +394,7 @@ const RegisterDetails = ({ className, ...rest }) => {
         }
         return html
     }
+
     return (
         <Formik 
          initialValues= {initialValues} validationSchema={validationSchema} onSubmit={onSubmit}
@@ -356,14 +449,14 @@ const RegisterDetails = ({ className, ...rest }) => {
                                     </Grid>
                                     <Grid item md={6} xs={12}>
                                         <TextField fullWidth
-                                         error={Boolean(formik.touched.dataProducerApplicationName && formik.errors.dataProducerApplicationName)}
-                                         helperText={formik.touched.dataProducerApplicationName && formik.errors.dataProducerApplicationName}
-                                         label = 'Data Producer Application Name *'
-                                         name = 'dataProducerApplicationName'
+                                         error={Boolean(formik.touched.dataProducerContact && formik.errors.dataProducerContact)}
+                                         helperText={formik.touched.dataProducerContact && formik.errors.dataProducerContact}
+                                         label = 'Data Producer Contact No *'
+                                         name = 'dataProducerContact'
                                          onChange = {formik.handleChange}
                                          onBlur ={formik.handleBlur}
                                          margin='normal'
-                                         value={formik.values.dataProducerApplicationName}
+                                         value={formik.values.dataProducerContact}
                                          variant='outlined' />
                                     </Grid>
                                 </Grid>
@@ -439,8 +532,9 @@ const RegisterDetails = ({ className, ...rest }) => {
                                     datasetSourceRandering(formik)
                                     }
                                 </Grid>
-                                
+
                             </CardContent>
+                            
                             <Divider />
                                 <Box
                                 display="flex"
@@ -450,6 +544,7 @@ const RegisterDetails = ({ className, ...rest }) => {
                                 <Button
                                     color="primary"
                                     variant="contained"
+                                    type="submit"
                                 >
                                     Save details
                                 </Button>

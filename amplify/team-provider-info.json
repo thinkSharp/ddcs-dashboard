@@ -1,0 +1,15 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-reactmaterialdashboa-dev-161607-authRole",
+            "UnauthRoleArn": "arn:aws:iam::729849979377:role/amplify-reactmaterialdashboa-dev-161607-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::729849979377:role/amplify-reactmaterialdashboa-dev-161607-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-reactmaterialdashboa-dev-161607-deployment",
+            "UnauthRoleName": "amplify-reactmaterialdashboa-dev-161607-unauthRole",
+            "StackName": "amplify-reactmaterialdashboa-dev-161607",
+            "StackId": "arn:aws:cloudformation:us-east-1:729849979377:stack/amplify-reactmaterialdashboa-dev-161607/fc7a5810-e7d8-11ea-a546-12bdd946785e",
+            "AmplifyAppId": "d6sdni91dqx0l"
+        }
+    }
+}
