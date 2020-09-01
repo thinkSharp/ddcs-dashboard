@@ -13,8 +13,8 @@ import {
 } from '@material-ui/core';
 import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
+import { API } from 'aws-amplify';
 import axios from 'axios';
-
 
 const api_gateway = 'https://ec12jexz30.execute-api.us-east-1.amazonaws.com/poc_v2/catalog/register'
 
@@ -80,18 +80,19 @@ const RegisterDetails = ({ className, ...rest }) => {
     )
 
     const onSubmit= (values) => {
-        alert('Form data', values)
+
         console.log(values)
-        var header = {
-            headers: { 'Content-Type': 'multipart/form-data' }
-          };
-        axios.post(api_gateway, values, header)
-            .then(response => {
-                console.log(response)
-            })
-            .catch(error => {
-                console.log('error', error)
-            })
+
+        
+        const url = 'https://ec12jexz30.execute-api.us-east-1.amazonaws.com/poc_v2/catalog/register'
+        axios.post(url, JSON.stringify(values))
+        .then(function (response) {
+            console.log(JSON.stringify(response));
+        })
+        .catch(function (error) {
+            console.log(error);
+            console.log(JSON.stringify(error));
+        });
     }
 
     const datasetTypeRandering = (formik) =>{
