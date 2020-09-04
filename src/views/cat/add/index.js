@@ -5,8 +5,7 @@ import {
   makeStyles
 } from '@material-ui/core';
 import Page from 'src/components/Page';
-
-import Depository from './Depository';
+import AddCatalogComponent from './AddCatalogComponent';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +38,7 @@ const AddCatalog = () => {
               md={12}
               xs={12}
             >
-              <Depository />
+              <AddCatalogComponent />
             </Grid>
           </Grid>
         </Container>
@@ -48,4 +47,3 @@ const AddCatalog = () => {
   };
 
 export default AddCatalog
-
