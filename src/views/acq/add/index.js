@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const AddSubscription = () => {
+const AddAcquisition = () => {
     const classes = useStyles();
 
     return (
@@ -47,5 +47,5 @@ const AddSubscription = () => {
     );
   };
 
-export default AddSubscription
+export default AddAcquisition
 

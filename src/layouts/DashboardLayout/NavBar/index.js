@@ -14,6 +14,7 @@ import {
 import {
   AlertCircle as AlertCircleIcon,
   BarChart as BarChartIcon,
+  Search as SearchIcon,
   Lock as LockIcon,
   Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
@@ -33,39 +34,58 @@ const user = {
   jobTitle: 'Lead Data Engineer',
   name: 'Vishal Bajoria'
 };
-const registrations = [
+
+const catalogs = [
   {
-    href: '/reg/registrationdashboard',
-    icon: BarChartIcon,
+    href: '/cat/search',
+    icon: SearchIcon,
     title: 'Registration Dashboard'
   },
   {
-    href: '/reg/registration',
+    href: '/cat/add',
     icon: PlusCircleIcon,
-    title: 'Register'
+    title: 'Add'
   },
   {
-    href: '/reg/correction',
+    href: '/cat/edit',
     icon: CheckCircleIcon,
-    title: 'Correction'
+    title: 'Edit'
   },
   {
-    href: '/reg/modification',
+    href: '/cat/retire',
+    icon: XCircleIcon,
+    title: 'Retire'
+  },
+];
+
+const acquisitions = [
+  {
+    href: '/acq/search',
+    icon: SearchIcon,
+    title: 'Search'
+  },
+  {
+    href: '/acq/add',
+    icon: PlusCircleIcon,
+    title: 'Add'
+  },
+  {
+    href: '/acq/edit',
     icon: CheckCircleIcon,
-    title: 'Modification'
+    title: 'Edit'
   },
   {
-    href: '/reg/retire',
+    href: '/acq/retire',
     icon: XCircleIcon,
     title: 'Retire'
   },
   {
-    href: '/reg/datasetprofile',
+    href: '/acq/datasetprofile',
     icon: ServerIcon,
     title: 'Profiling'
   },
   {
-    href: '/reg/datasetquality',
+    href: '/acq/datasetquality',
     icon: LayoutIcon,
     title: 'Quality'
   },
@@ -73,24 +93,24 @@ const registrations = [
 
 const depostories = [
   {
-    href: '/dep/dashboard',
-    icon: BarChartIcon,
-    title: 'Depostory Dashboard'
+    href: '/dep/search',
+    icon: SearchIcon,
+    title: 'Search'
   },
   {
     href: '/dep/add',
     icon: PlusCircleIcon,
-    title: 'Add Subscription'
+    title: 'Add'
   },
   {
-    href: '/dep/modify',
+    href: '/dep/edit',
     icon: CheckCircleIcon,
-    title: 'Modify Subscription'
+    title: 'Edit'
   },
   {
-    href: '/dep/delete',
+    href: '/dep/retire',
     icon: XCircleIcon,
-    title: 'Delete Subscription'
+    title: 'Retire'
   },
   {
     href: '/dep/profile',
@@ -102,40 +122,6 @@ const depostories = [
     icon: LayoutIcon,
     title: 'Quality'
   },
-];
-
-
-const items = [
-  {
-    href: '/app/dashboard',
-    icon: BarChartIcon,
-    title: 'Dashboard'
-  },
-  {
-    href: '/app/customers',
-    icon: UsersIcon,
-    title: 'Customers'
-  },
-  {
-    href: '/app/products',
-    icon: ShoppingBagIcon,
-    title: 'Products'
-  },
-  {
-    href: '/app/account',
-    icon: UserIcon,
-    title: 'Account'
-  },
-  {
-    href: '/app/settings',
-    icon: SettingsIcon,
-    title: 'Settings'
-  },
-  {
-    href: '/app/register',
-    icon: UserPlusIcon,
-    title: 'Register'
-  }
 ];
 
 const useStyles = makeStyles(() => ({
@@ -171,39 +157,17 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       display="flex"
       flexDirection="column"
     >
-      <Box
-        alignItems="center"
-        display="flex"
-        flexDirection="column"
-        p={2}
-      >
-        <Avatar
-          className={classes.avatar}
-          component={RouterLink}
-          src={user.avatar}
-          to="/app/account"
-        />
-        <Typography
+     
+      <Box p={2}>
+      <Typography
           className={classes.name}
           color="textPrimary"
           variant="h5"
         >
-          {user.name}
+          Catalog
         </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body2"
-        >
-          {user.jobTitle}
-        </Typography>
-
-      </Box>
-      <Divider />
-     
-  
-      <Box p={2}>
         <List>
-          {registrations.map((item) => (
+          {catalogs.map((item) => (
             <NavItem
               href={item.href}
               key={item.title}
@@ -215,8 +179,32 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       </Box>
       <Divider />
      
-  
       <Box p={2}>
+      <Typography
+          color="textSecondary"
+          variant="h5"
+        >
+          Depository Acquisition
+        </Typography>
+        <List>
+          {acquisitions.map((item) => (
+            <NavItem
+              href={item.href}
+              key={item.title}
+              title={item.title}
+              icon={item.icon}
+            />
+          ))}
+        </List>
+      </Box>
+      <Divider />
+      <Box p={2}>
+      <Typography
+          color="textSecondary"
+          variant="h5"
+        >
+          Depository Subscription
+        </Typography>
         <List>
           {depostories.map((item) => (
             <NavItem

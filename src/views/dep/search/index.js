@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ModifyDepository = () => {
+const SearchSubscription = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const ModifyDepository = () => {
     )
 }
 
-export default ModifyDepository
+export default SearchSubscription

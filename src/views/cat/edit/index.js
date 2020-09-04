@@ -1,6 +1,6 @@
 import React from 'react'
 
-const DashboardDepository = () => {
+const EditCatalog = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const DashboardDepository = () => {
     )
 }
 
-export default DashboardDepository
+export default EditCatalog

@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
@@ -23,11 +23,35 @@ const useStyles = makeStyles(() => ({
 
 const RegistrySearch = ({ className, ...rest }) => {
     const classes = useStyles();
+    const [datasets, setDatasets] = useState({});
+    const [datasetNames, setDatasetNames] = useState([])
 
+    useEffect(() => {
+        console.log('displaying data')
+        queryDb('', '', 'ScanForNameAndVersion')
+        .then(function (response) {
+            console.log("In useEffect" + response);
+            setDatasets(response);
+            
+            console.log(datasets);
+            for (const item of datasets.entries()) {
+                console.log(item)
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+            console.log(JSON.stringify(error));
+        });
+    }, [datasetNames])
 
     const initialValues = {
         datasetName: '',
         datasetVersion: '',
+    }
+
+    const loadValues = {
+        datasetName: '',
+        datasetVersion: ''
     }
     const validationSchema = Yup.object().shape(
         {
@@ -35,48 +59,33 @@ const RegistrySearch = ({ className, ...rest }) => {
         }
     )
 
-    async function makeAPICall(values) {
-        const apiName = 'DDCS'; // replace this with your api name.
-        const path = '/registry/view'; //replace this with the path you have configured on your API
-        const myInit = {
-            body: { values }, // replace this with attributes you need
-            headers: {"Access-Control-Allow-Origin" : "*" }
-            //headers: {'Content-Type':'multipart/form-data', 'Accept':'*/*'}, // OPTIONAL
+    const queryDb = (datasetName, version, queryType) => {
+        const url = 'https://ec12jexz30.execute-api.us-east-1.amazonaws.com/poc_v2/registry/view'
+        let config = {
+            method: 'get',
+            url: url,
+            params: {
+                datasetName: datasetName,
+                version: version,
+                queryType: queryType
+            }
         };
-        
-        return API
-                .get(apiName, path, myInit)
-                .then(response => {
-                console.log(response)
-                })
-                .catch(error => {
-                console.log(error.response);
-                });
+
+        return axios(config)
+            .then(function (response) {
+            const data = JSON.stringify(response.data)
+            console.log("From queryDb" + data);
+            return data;
+        })
     }
 
     const onSubmit= (values) => {
         console.log(values)
 
-        //const promise = makeAPICall(values);
-        //promise.then(response => console.log(response)).catch(error => console.log(error))
-        var axios = require('axios');
+        const queryType = values.datasetVersion == '' ? 'QueryByName' : 'QueryByNameAndVersion';
+        const data = queryDb(values.dataSetNames, values.datasetVersion, queryType)
 
-        var config = {
-        method: 'get',
-        url: 'https://ec12jexz30.execute-api.us-east-1.amazonaws.com/poc_v2/registry/view',
-        //headers: { 'Accept':'**','Cache-Control':'no-cache' }
-        };
-
-        axios(config)
-        .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        })
-        .catch(function (error) {
-            console.log(error);
-            console.log(JSON.stringify(error));
-        });
-
-        
+        console.log(data)
     }
 
     return (
@@ -105,7 +114,8 @@ const RegistrySearch = ({ className, ...rest }) => {
                                          SelectProps={{native: true}}
                                          variant='outlined'>
                                             <option key='' value=''>Select Dataset Name *</option>
-                                            <option key='1' value='1'>One</option>
+
+                                            
                                          </TextField>
                                     </Grid>
                                     <Grid item md={6} xs={12}>

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const DeleteSubscription = () => {
+const EditSubscription = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const DeleteSubscription = () => {
     )
 }
 
-export default DeleteSubscription
+export default EditSubscription

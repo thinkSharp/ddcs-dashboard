@@ -87,7 +87,7 @@ const RegisterDetails = ({ className, ...rest }) => {
         const url = 'https://ec12jexz30.execute-api.us-east-1.amazonaws.com/poc_v2/catalog/register'
         axios.post(url, JSON.stringify(values))
         .then(function (response) {
-            console.log(JSON.stringify(response));
+            console.log(JSON.stringify(response.data));
         })
         .catch(function (error) {
             console.log(error);
