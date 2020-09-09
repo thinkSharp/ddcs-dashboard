@@ -54,8 +54,9 @@ const RegisterView = () => {
                 policy: Yup.boolean().oneOf([true], 'This field must be checked')
               })
             }
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+            onSubmit={(values) => {
+              console.log(values)
+              navigate(`/login`, {state:values});
             }}
           >
             {({

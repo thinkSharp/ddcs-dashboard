@@ -101,6 +101,7 @@ const routes = [
     path: '/',
     element: <MainLayout />,
     children: [
+      { path: 'login2/:id', element: <LoginView  /> },
       { path: 'login', element: <LoginView /> },
       { path: '404', element: <NotFoundView /> },
       { path: '/', element: <Navigate to="/cat/add" /> },
