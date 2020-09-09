@@ -39,7 +39,7 @@ const catalogs = [
   {
     href: '/cat/search',
     icon: SearchIcon,
-    title: 'Registration Dashboard'
+    title: 'Search'
   },
   {
     href: '/cat/add',
