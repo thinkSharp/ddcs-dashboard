@@ -28,19 +28,20 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-const AddCatalogComponent = ({ className, ...rest }) => {
+
+const EditCatalogComponent = ({ initVals, className, ...rest }) => {
     const classes = useStyles();
     const [resp, setResponse] = useState({});
     
     const initialValues = {
-        producerName: '',
-        producerDepartment: '',
-        producerEmail: '',
-        producerContact: '',
-        catalogName: '',
-        catalogDescription: '',
-        accessModality: '',
-        dataFrequency: '',
+        producerName: initVals.producerName,
+        producerDepartment: initVals.producerDepartment,
+        producerEmail: initVals.producerEmail,
+        producerContact: initVals.producerContact,
+        catalogName: initVals.datasetName,
+        catalogDescription: initVals.catalogDescription,
+        accessModality: initVals.accessModality,
+        dataFrequency: initVals.dataFrequency,
     }
     const validationSchema = Yup.object().shape(
         {
@@ -83,9 +84,9 @@ const AddCatalogComponent = ({ className, ...rest }) => {
                     <Form>
                         <Card>
                             {resp.respMsg && <CardHeader title={resp.message} />}
-                            <CardHeader title='Catalog Entry Form testing' />
+                            <CardHeader title='Update Catalog' />
                             <Divider />
-                            <CardHeader subheader='Catalog Producer Info' />
+                            <CardHeader subheader='Catalog Producer Info : ' />
                             <Divider />
                             <CardContent>
                                 <Grid container spacing={3}>
@@ -244,9 +245,9 @@ const AddCatalogComponent = ({ className, ...rest }) => {
 
 };
 
-AddCatalogComponent.propTypes = {
+EditCatalogComponent.propTypes = {
   className: PropTypes.string
 };
 
-export default AddCatalogComponent;
+export default EditCatalogComponent;
 
