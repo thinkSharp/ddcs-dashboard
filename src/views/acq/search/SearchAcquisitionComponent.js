@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-const SearchCatalogComponent = ({ className, ...rest }) => {
+const SearchAcquisitionComponent = ({ className, ...rest }) => {
     const classes = useStyles();
     const [rows, setRows] = useState([])
     const [page, setPage] = React.useState(0);
@@ -61,8 +61,8 @@ const SearchCatalogComponent = ({ className, ...rest }) => {
     };
 
   const columns = ([
-    { id: 'correct', label: 'Correct', minWidth: 75, href: '/cat/edit'},
-    { id: 'retire', label: 'Retire', midWidth: 75, href: '/cat/retire'},
+    { id: 'acquire', label: 'Acquire', minWidth: 75, href: '/acq/edit'},
+    { id: 'retire', label: 'Retire', midWidth: 75, href: '/acq/retire'},
     { id: 'data_catalog', label: 'Catalog', minWidth: 150, href: '' },
     {
         id: 'version',
@@ -82,8 +82,7 @@ const SearchCatalogComponent = ({ className, ...rest }) => {
   return (
       <React.Fragment>
     <Card>
-    <CardHeader title='Search Catalog' />
-    <CardHeader title={test} />
+    <CardHeader title='Search Catalog for Acquisition' />
     </Card>
     <Paper className={classes.root}>
         
@@ -105,8 +104,8 @@ const SearchCatalogComponent = ({ className, ...rest }) => {
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                 const data_catalog = row['data_catalog'];
-                const retire = '/cat/retire/' + data_catalog;
-                const correct = '/cat/edit/' + data_catalog;
+                const retire = '/acq/retire/' + data_catalog;
+                const acquire = '/acq/edit/' + data_catalog;
               return (
                 <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
 
@@ -120,7 +119,7 @@ const SearchCatalogComponent = ({ className, ...rest }) => {
                                 {column.format && typeof value === 'number' ? column.format(value) : value}
                             </TableCell> 
                             :
-                            <TableCell align={column.align} component='a' href = {column.href === '/cat/retire' ? retire : correct}>
+                            <TableCell align={column.align} component='a' href = {column.href === '/acq/retire' ? retire : acquire}>
                                 {column.id}
                             </TableCell> 
                     );}
@@ -147,9 +146,9 @@ const SearchCatalogComponent = ({ className, ...rest }) => {
 
 };
 
-SearchCatalogComponent.propTypes = {
+SearchAcquisitionComponent.propTypes = {
   className: PropTypes.string
 };
 
-export default SearchCatalogComponent;
+export default SearchAcquisitionComponent;
 

@@ -13,7 +13,6 @@ import {
 } from '@material-ui/core';
 import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
-import { API } from 'aws-amplify';
 import axios from 'axios';
 
 
@@ -29,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 const AddCatalogComponent = ({ className, ...rest }) => {
-    const classes = useStyles();
+    //const classes = useStyles();
     const [resp, setResponse] = useState({});
     
     const initialValues = {

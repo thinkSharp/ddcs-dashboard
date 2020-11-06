@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
@@ -13,7 +13,6 @@ import {
 } from '@material-ui/core';
 import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
-import { API } from 'aws-amplify';
 import axios from 'axios';
 
 
@@ -28,21 +27,50 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-
-const EditCatalogComponent = ({ initVals, className, ...rest }) => {
+const EditCatalogComponent = ({ className,catalogId, ...rest }) => {
     const classes = useStyles();
     const [resp, setResponse] = useState({});
+    const [initialValues, setInitialValues] = useState({});
+    const [savedData, setSavedData] = useState({});
+    const [rows, setRows] = useState([])
     
-    const initialValues = {
-        producerName: initVals.producerName,
-        producerDepartment: initVals.producerDepartment,
-        producerEmail: initVals.producerEmail,
-        producerContact: initVals.producerContact,
-        catalogName: initVals.datasetName,
-        catalogDescription: initVals.catalogDescription,
-        accessModality: initVals.accessModality,
-        dataFrequency: initVals.dataFrequency,
-    }
+    useEffect(() =>{
+        axios
+        .get(`https://ec12jexz30.execute-api.us-east-1.amazonaws.com/poc_v2/catalog/view?queryType=QueryByName&&catalog_name=` + catalogId)
+        .then( res => {
+            console.log("Received data from api gateway")
+            console.log(res.data)
+            let temp = res.data
+            console.log("temp:" )
+            console.log(temp)
+            let temp2 = temp[0]
+            console.log(temp2)
+            const catalog = {
+                producerName: temp2.producer,
+                producerDepartment: temp2.department,
+                producerEmail: temp2.email,
+                producerContact: temp2.contact,
+                catalogName: temp2.data_catalog,
+                catalogDescription: temp2.description,
+                accessModality: temp2.access,
+                dataFrequency: temp2.frequency,
+            }
+            console.log(catalog)
+            setInitialValues(res.data[0])
+            setRows([catalog])
+            console.log("Printing initial value:")
+            //console.log(rows)
+        })
+        .catch(err =>{
+            console.log(err)
+        })
+
+    },[])
+
+
+    console.log("In Edit:" + catalogId);
+
+
     const validationSchema = Yup.object().shape(
         {
             producerName: Yup.string().required('Data Producer Name is required!'),
@@ -57,6 +85,10 @@ const EditCatalogComponent = ({ initVals, className, ...rest }) => {
         }
     )
 
+    const onSubmitLoad = () => {
+        setSavedData(initialValues)
+        console.log('Load function is called')
+    }
     const onSubmit= (values) => {
 
         console.log(values)
@@ -74,19 +106,19 @@ const EditCatalogComponent = ({ initVals, className, ...rest }) => {
         });
     }
 
-
+ 
     return (
-        <Formik 
-         initialValues= {initialValues} validationSchema={validationSchema} onSubmit={onSubmit}
+                <Formik 
+         initialValues= {savedData || initialValues} validationSchema={validationSchema} onSubmit={onSubmit}
+         enableReinitialize={true}
         >
             {
                 (formik) => (
                     <Form>
                         <Card>
-                            {resp.respMsg && <CardHeader title={resp.message} />}
-                            <CardHeader title='Update Catalog' />
+                            <CardHeader title={'Catalog Modification: ' + JSON.stringify(initialValues)} />
                             <Divider />
-                            <CardHeader subheader='Catalog Producer Info : ' />
+                            <CardHeader subheader='Catalog Producer Info' />
                             <Divider />
                             <CardContent>
                                 <Grid container spacing={3}>
@@ -228,6 +260,13 @@ const EditCatalogComponent = ({ initVals, className, ...rest }) => {
                                 justifyContent="flex-end"
                                 p={2}
                                 >
+                                            <Button
+                                    color="primary"
+                                    variant="contained"
+                                    type="submit" onSubmit = {onSubmitLoad}
+                                >
+                                    Load details
+                                </Button> &nbsp;
                                 <Button
                                     color="primary"
                                     variant="contained"
@@ -241,7 +280,9 @@ const EditCatalogComponent = ({ initVals, className, ...rest }) => {
                 )
             }
         </Formik>
+    
     )
+
 
 };
 
