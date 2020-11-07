@@ -29,13 +29,15 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const AcquireCatalogComponent = ({ className,catalogId, ...rest }) => {
+const CatalogSubscriptionComponent = ({ className,catalogId, ...rest }) => {
     const classes = useStyles();
     const [resp, setResponse] = useState({});
     const [initialValues, setInitialValues] = useState({});
     const [defaultValues, setDefaultValues] = useState({
         catalogName: '',
-        accessModility: '',
+        accessModality: '',
+        subscriptionType: '',
+        deliveryMedium: '',
         databaseConnectionString: '',
         databaseSqlQuery: '',
         sftpHost: '',
@@ -44,10 +46,10 @@ const AcquireCatalogComponent = ({ className,catalogId, ...rest }) => {
         sftpPwd: '',
         networkPath: '',
         s3BucketUrl: '',
-        fileName: '',
+        projection: '',
         datasetAccessValidationResult: false,
         datasetAccessValidationErrorMsg: '',
-        sampleFile: ''
+        cronjob: ''
     });
     const [rows, setRows] = useState([])
     
@@ -71,9 +73,42 @@ const AcquireCatalogComponent = ({ className,catalogId, ...rest }) => {
         setDefaultValues({ ...defaultValues, catalogName: catalogId})
     }
 
+    const subscriptionTypeRendering = (formik) => {
+        let html;
+        const select = formik.values.subscriptionType
+        if (select === 'schedule') {
+            html = <CardContent>
+            <Grid container spacing={3}>
+                <Grid item xs={12}>
+                    <TextField fullWidth
+                    error={Boolean(formik.touched.cronjob && formik.errors.cronjob)}
+                    helperText={formik.touched.cronjob && formik.errors.cronjob}
+                    label = 'Schedule cron job *'
+                    name = 'cronjob'
+                    onChange = {formik.handleChange}
+                    onBlur ={formik.handleBlur}
+                    margin='normal'
+                    value={formik.values.cronjob}
+                    variant='outlined' />
+                </Grid>
+                </Grid>
+            </CardContent>
+        }
+        else if (select === 'event'){
+            html = <CardContent>
+            <Grid container spacing={3}>
+                <Grid item xs={12}>
+        <Typography>Delivery Frequency: <b>{initialValues.dataFrequency}</b></Typography>
+                </Grid>
+                </Grid>
+            </CardContent>
+        }
+        return html
+    }
+
     const datasetTypeRandering = (formik) =>{
         let html;
-        const select = formik.values.accessModility
+        const select = formik.values.deliveryMedium
         if (select === 'database'){
             html = <CardContent>
             <Grid container spacing={3}>
@@ -376,15 +411,17 @@ const AcquireCatalogComponent = ({ className,catalogId, ...rest }) => {
 
     const validationSchema = Yup.object().shape(
         {
-            accessModility: Yup.string().required('required!'),
-            databaseConnectionString: Yup.mixed().when('accessModility', {is: (val) => val ==='database', then: Yup.string().required('required!')}),
-            databaseSqlQuery: Yup.mixed().when('accessModility',{is: (val) => val === 'database', then: Yup.string().required('required!')}),
-            sftpHost: Yup.mixed().when('accessModility',{is: (val) => val === 'sftp', then: Yup.string().required('required!')}),
-            sftpPort: Yup.mixed().when('accessModility',{is: (val) => val === 'sftp', then: Yup.string().required('required!')}),
-            sftpUser: Yup.mixed().when('accessModility',{is: (val) => val === 'sftp', then: Yup.string().required('required!')}),
-            sftpPwd: Yup.mixed().when('accessModility',{is: (val) => val === 'sftp', then: Yup.string().required('required!')}),
-            networkPath: Yup.mixed().when('accessModility',{is: (val) => val === 'sharepoint', then: Yup.string().required('required!')}),
-            s3BucketUrl: Yup.mixed().when('accessModility',{is: (val) => val === 's3', then: Yup.string().required('required!')})
+            deliveryMedium: Yup.string().required('required!'),
+            subscriptionType: Yup.string().required('required!'),
+            cronjob: Yup.mixed().when('subscriptionType',{is: (val) => val === 'schedule', then: Yup.string().required('required!')}),
+            databaseConnectionString: Yup.mixed().when('deliveryMedium', {is: (val) => val ==='database', then: Yup.string().required('required!')}),
+            databaseSqlQuery: Yup.mixed().when('deliveryMedium',{is: (val) => val === 'database', then: Yup.string().required('required!')}),
+            sftpHost: Yup.mixed().when('deliveryMedium',{is: (val) => val === 'sftp', then: Yup.string().required('required!')}),
+            sftpPort: Yup.mixed().when('deliveryMedium',{is: (val) => val === 'sftp', then: Yup.string().required('required!')}),
+            sftpUser: Yup.mixed().when('deliveryMedium',{is: (val) => val === 'sftp', then: Yup.string().required('required!')}),
+            sftpPwd: Yup.mixed().when('deliveryMedium',{is: (val) => val === 'sftp', then: Yup.string().required('required!')}),
+            networkPath: Yup.mixed().when('deliveryMedium',{is: (val) => val === 'sharepoint', then: Yup.string().required('required!')}),
+            s3BucketUrl: Yup.mixed().when('deliveryMedium',{is: (val) => val === 's3', then: Yup.string().required('required!')})
         })
 
     const onSubmit= (values) => {
@@ -459,25 +496,56 @@ const AcquireCatalogComponent = ({ className,catalogId, ...rest }) => {
                 (formik) => (
                     <Form>
                         <Card>
-                            <CardHeader title={'Catalog Acquisition Info: ' } />
+                            <CardHeader title={'Catalog Subscription Info: ' } />
 
                                 <Divider />
                                 <CardContent>
+                                    <CardHeader subheader='Subscription Crateria'></CardHeader>
+                                    <Divider></Divider>
+                                    <CardHeader subheader='Subscription Type'></CardHeader>
+                                    <Divider></Divider>
                                 <Grid container spacing={3}>
                                     <Grid item md={6} xs={12}>
                                         <TextField fullWidth
-                                         error={Boolean(formik.touched.accessModility && formik.errors.accessModility)}
-                                         helperText={formik.touched.accessModility && formik.errors.accessModility}
-                                         label = 'Select Access Modility *'
-                                         name = 'accessModility'
+                                         error={Boolean(formik.touched.subscriptionType && formik.errors.subscriptionType)}
+                                         helperText={formik.touched.subscriptionType && formik.errors.subscriptionType}
+                                         label = 'Select Subscription Type *'
+                                         name = 'subscriptionType'
                                          onChange = {formik.handleChange}
                                          onBlur ={formik.handleBlur}
-                                         value={formik.values.accessModility}
+                                         value={formik.values.subscriptionType}
                                          select
                                          margin='normal'
                                          SelectProps={{native: true}}
                                          variant='outlined'>
-                                             <option key='' value=''>Select Access Modility *</option>
+                                             <option key='' value=''>Select Subscription Type *</option>
+                                             <option key='event' value='event'>Event Based</option>
+                                             <option key='schedule' value='schedule'>Schedule Based</option>
+                                         </TextField>
+                                    </Grid>
+                                </Grid>
+                                {
+                                    subscriptionTypeRendering(formik)
+                                }
+                                &nbsp;
+                                <Divider></Divider>
+                                <CardHeader subheader='Delivery Medium'></CardHeader>
+                                <Divider></Divider>
+                                <Grid container spacing={3}>
+                                    <Grid item md={6} xs={12}>
+                                        <TextField fullWidth
+                                         error={Boolean(formik.touched.deliveryMedium && formik.errors.deliveryMedium)}
+                                         helperText={formik.touched.deliveryMedium && formik.errors.deliveryMedium}
+                                         label = 'Select Delivery Medium *'
+                                         name = 'deliveryMedium'
+                                         onChange = {formik.handleChange}
+                                         onBlur ={formik.handleBlur}
+                                         value={formik.values.deliveryMedium}
+                                         select
+                                         margin='normal'
+                                         SelectProps={{native: true}}
+                                         variant='outlined'>
+                                             <option key='' value=''>Select Delivery Medium *</option>
                                              <option key='db' value='database'>Database</option>
                                              <option key='sftp' value='sftp'>SFTP</option>
                                              <option key='network' value='network'>Network Path</option>
@@ -514,9 +582,9 @@ const AcquireCatalogComponent = ({ className,catalogId, ...rest }) => {
     )
 };
 
-AcquireCatalogComponent.propTypes = {
+CatalogSubscriptionComponent.propTypes = {
   className: PropTypes.string
 };
 
-export default AcquireCatalogComponent;
+export default CatalogSubscriptionComponent;
 

@@ -14,7 +14,7 @@ import {
 import * as Yup from 'yup';
 import axios from 'axios';
 
-const RetireAcquisitationComponent = ({ className,catalogId, ...rest }) => {
+const UnSubscribeCatalogComponent = ({ className,catalogId, ...rest }) => {
     const [resp, setResponse] = useState({});
     const [initialValues, setInitialValues] = useState({});
     const [loadValues, setLoadValues] = useState({});
@@ -179,9 +179,9 @@ const RetireAcquisitationComponent = ({ className,catalogId, ...rest }) => {
 
 };
 
-RetireAcquisitationComponent.propTypes = {
+UnSubscribeCatalogComponent.propTypes = {
   className: PropTypes.string
 };
 
-export default RetireAcquisitationComponent;
+export default UnSubscribeCatalogComponent;
 

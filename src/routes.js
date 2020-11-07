@@ -44,8 +44,8 @@ const routes = [
     element: <DashboardLayout />,
     children:[
       {path:'add', element: <AddSubscription />},
-      {path:'edit', element: <EditSubscription />},
-      {path:'delete', element:<DeleteSubscription />},
+      {path:'edit/:catalogId', element: <EditSubscription />},
+      {path:'retire/:catalogId', element:<DeleteSubscription />},
       {path:'search', element:<SearchSubscription />},
       {path:'profile', element: <DepositoryDataProfile />},
       {path:'quality', element:<DepositoryDataQuality />}
