@@ -445,9 +445,7 @@ const CatalogSubscriptionComponent = ({ className,catalogId, ...rest }) => {
      <>
         <Card>
         {resp.respMsg && <CardHeader title={resp.message} />}
-            <CardHeader title={'Setup Data Acquisition Catalog: ' + catalogId} />
-            <Divider ></Divider>
-            <CardHeader subheader='Catalog Info' />
+            <CardHeader title='Manage Depository Subscription'/>
                             <Divider />
                             <CardContent>
                                 <Grid container spacing={3}>
@@ -496,11 +494,9 @@ const CatalogSubscriptionComponent = ({ className,catalogId, ...rest }) => {
                 (formik) => (
                     <Form>
                         <Card>
-                            <CardHeader title={'Catalog Subscription Info: ' } />
 
-                                <Divider />
                                 <CardContent>
-                                    <CardHeader subheader='Subscription Crateria'></CardHeader>
+                                    <CardHeader subheader='Data Projection Crateria'></CardHeader>
                                     <Divider></Divider>
                                     <CardHeader subheader='Subscription Type'></CardHeader>
                                     <Divider></Divider>

@@ -121,29 +121,25 @@ const DeleteCatalogComponent = ({ className,catalogId, ...rest }) => {
     return (
      
         <Card>
-            <CardHeader title={'Retire Catalog: ' + catalogId} />
+            <CardHeader title={'Retire Catalog: '} />
             <Divider ></Divider>
             <CardHeader subheader='Catalog Producer Info' />
                             <Divider />
                             <CardContent>
                                 <Grid container spacing={3}>
                                     <Grid item md={6} xs={12}>
-                                        <Typography>Producer Name: </Typography>
-    <Typography>{initialValues.producerName}</Typography>
+                                        <Typography>Producer Name: <b>{initialValues.producerName}</b></Typography>
                                     </Grid>
                                     <Grid item md={6} xs={12}>
-                                        <Typography>Producer Department: </Typography>
-    <Typography>{initialValues.producerDepartment}</Typography>
+                                        <Typography>Producer Department: <b>{initialValues.producerDepartment}</b></Typography>
                                     </Grid>
                                 </Grid>
                                 <Grid container spacing={3}>
                                     <Grid item md={6} xs={12}>
-                                    <Typography>Producer Email: </Typography>
-    <Typography>{initialValues.producerEmail}</Typography>
+                                    <Typography>Producer Email: <b>{initialValues.producerEmail}</b></Typography>
                                     </Grid>
                                     <Grid item md={6} xs={12}>
-                                    <Typography>Producer Contact: </Typography>
-    <Typography>{initialValues.producerContact}</Typography>
+                                    <Typography>Producer Contact: <b>{initialValues.producerContact}</b></Typography>
                                     </Grid>
                                     </Grid>
 
@@ -153,22 +149,18 @@ const DeleteCatalogComponent = ({ className,catalogId, ...rest }) => {
                                 <Divider />
                                 <Grid container spacing={3}>
                                     <Grid item md={6} xs={12}>
-                                    <Typography>Catalog Name: </Typography>
-    <Typography>{initialValues.catalogName}</Typography>
+                                    <Typography>Catalog Name: <b>{initialValues.catalogName}</b></Typography>
                                     </Grid>
                                     <Grid item md={6} xs={12}>
-                                    <Typography>Catalog Description: </Typography>
-    <Typography>{initialValues.catalogDescription}</Typography>
+                                    <Typography>Catalog Description: <b>{initialValues.catalogDescription}</b></Typography>
                                     </Grid>
                                     </Grid>
                                     <Grid container spacing={3}>
                                 <Grid item md={6} xs={12}>
-                                <Typography>Access Modality: </Typography>
-    <Typography>{initialValues.accessModality}</Typography>
+                                <Typography>Access Modality: <b>{initialValues.accessModality}</b></Typography>
                                     </Grid>
                                     <Grid item md={6} xs={12}>
-                                    <Typography>Data Frequency: </Typography>
-    <Typography>{initialValues.dataFrequency}</Typography>
+                                    <Typography>Data Frequency: <b>{initialValues.dataFrequency}</b></Typography>
                                     </Grid>
                                     </Grid>
                                 </CardContent>

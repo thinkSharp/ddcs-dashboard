@@ -32,7 +32,6 @@ const SearchAcquisitionComponent = ({ className, ...rest }) => {
     const [rows, setRows] = useState([])
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [test, setTest] = useState('');
 
     useEffect(() =>{
         axios
@@ -42,9 +41,6 @@ const SearchAcquisitionComponent = ({ className, ...rest }) => {
             console.log(res)
             setRows(res.data)
             console.log(rows)
-            setTest('Hello World')
-
-            console.log('Hey; ' + test)
         })
         .catch(err =>{
             console.log(err)
@@ -61,8 +57,8 @@ const SearchAcquisitionComponent = ({ className, ...rest }) => {
     };
 
   const columns = ([
-    { id: 'acquire', label: 'Acquire', minWidth: 75, href: '/acq/edit'},
-    { id: 'retire', label: 'Retire', midWidth: 75, href: '/acq/retire'},
+    { id: 'acquire', label: 'Action', minWidth: 75, href: 'Manage'},
+    { id: 'retire', label: 'Action', midWidth: 75, href: 'Retire'},
     { id: 'data_catalog', label: 'Catalog', minWidth: 150, href: '' },
     {
         id: 'version',
@@ -82,7 +78,7 @@ const SearchAcquisitionComponent = ({ className, ...rest }) => {
   return (
       <React.Fragment>
     <Card>
-    <CardHeader title='Search Catalog for Acquisition' />
+    <CardHeader title='Search Catalog for Managing Acquisition' />
     </Card>
     <Paper className={classes.root}>
         
@@ -119,8 +115,8 @@ const SearchAcquisitionComponent = ({ className, ...rest }) => {
                                 {column.format && typeof value === 'number' ? column.format(value) : value}
                             </TableCell> 
                             :
-                            <TableCell align={column.align} component='a' href = {column.href === '/acq/retire' ? retire : acquire}>
-                                {column.id}
+                            <TableCell align={column.align} component='a' href = {column.href === 'Retire' ? retire : acquire}>
+                                <b><u>{column.href}</u></b>
                             </TableCell> 
                     );}
                   })}

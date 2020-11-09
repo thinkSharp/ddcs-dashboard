@@ -82,7 +82,7 @@ const AddCatalogComponent = ({ className, ...rest }) => {
                     <Form>
                         <Card>
                             {resp.respMsg && <CardHeader title={resp.message} />}
-                            <CardHeader title='Catalog Entry Form testing' />
+                            <CardHeader title='Catalog Entry Form' />
                             <Divider />
                             <CardHeader subheader='Catalog Producer Info' />
                             <Divider />

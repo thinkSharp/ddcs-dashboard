@@ -116,9 +116,9 @@ const EditCatalogComponent = ({ className,catalogId, ...rest }) => {
                 (formik) => (
                     <Form>
                         <Card>
-                            <CardHeader title={'Catalog Modification: ' + JSON.stringify(initialValues)} />
+                            <CardHeader title={'Update Catalog Info: '} />
                             <Divider />
-                            <CardHeader subheader='Catalog Producer Info' />
+                            <CardHeader subheader='Producer Info' />
                             <Divider />
                             <CardContent>
                                 <Grid container spacing={3}>

@@ -32,7 +32,7 @@ const SearchCatalogComponent = ({ className, ...rest }) => {
     const [rows, setRows] = useState([])
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [test, setTest] = useState('');
+
 
     useEffect(() =>{
         axios
@@ -42,7 +42,6 @@ const SearchCatalogComponent = ({ className, ...rest }) => {
             console.log(res)
             setRows(res.data)
             console.log(rows)
-            setTest('Hello World')
 
             console.log('Hey; ' + test)
         })
@@ -61,8 +60,8 @@ const SearchCatalogComponent = ({ className, ...rest }) => {
     };
 
   const columns = ([
-    { id: 'correct', label: 'Correct', minWidth: 75, href: '/cat/edit'},
-    { id: 'retire', label: 'Retire', midWidth: 75, href: '/cat/retire'},
+    { id: 'correct', label: 'Action', minWidth: 75, href: 'Update'},
+    { id: 'retire', label: 'Action', midWidth: 75, href: 'Retire'},
     { id: 'data_catalog', label: 'Catalog', minWidth: 150, href: '' },
     {
         id: 'version',
@@ -83,7 +82,6 @@ const SearchCatalogComponent = ({ className, ...rest }) => {
       <React.Fragment>
     <Card>
     <CardHeader title='Search Catalog' />
-    <CardHeader title={test} />
     </Card>
     <Paper className={classes.root}>
         
@@ -120,8 +118,8 @@ const SearchCatalogComponent = ({ className, ...rest }) => {
                                 {column.format && typeof value === 'number' ? column.format(value) : value}
                             </TableCell> 
                             :
-                            <TableCell align={column.align} component='a' href = {column.href === '/cat/retire' ? retire : correct}>
-                                {column.id}
+                            <TableCell align={column.align} component='a' href = {column.href === 'Retire' ? retire : correct}>
+                                <b><u>{column.href}</u></b>
                             </TableCell> 
                     );}
                   })}

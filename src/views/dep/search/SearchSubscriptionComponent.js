@@ -61,8 +61,8 @@ const SearchSubscriptionComponent = ({ className, ...rest }) => {
     };
 
   const columns = ([
-    { id: 'subscribe', label: 'Subscribe', minWidth: 75, href: '/dep/edit'},
-    { id: 'unsubscribe', label: 'UnSubscribe', midWidth: 75, href: '/dep/retire'},
+    { id: 'subscribe', label: 'Action', minWidth: 75, href: 'Manage'},
+    { id: 'unsubscribe', label: 'Action', midWidth: 75, href: 'UnSubscribe'},
     { id: 'data_catalog', label: 'Catalog', minWidth: 150, href: '' },
     {
         id: 'version',
@@ -82,7 +82,7 @@ const SearchSubscriptionComponent = ({ className, ...rest }) => {
   return (
       <React.Fragment>
     <Card>
-    <CardHeader title='Search Catalog for Subscription' />
+    <CardHeader title='Search Catalog for Managing Subscription' />
     </Card>
     <Paper className={classes.root}>
         
@@ -119,8 +119,8 @@ const SearchSubscriptionComponent = ({ className, ...rest }) => {
                                 {column.format && typeof value === 'number' ? column.format(value) : value}
                             </TableCell> 
                             :
-                            <TableCell align={column.align} component='a' href = {column.href === '/dep/retire' ? retire : acquire}>
-                                {column.id}
+                            <TableCell align={column.align} component='a' href = {column.href === 'UnSubscribe' ? retire : acquire}>
+                                <b><u>{column.href}</u></b>
                             </TableCell> 
                     );}
                   })}

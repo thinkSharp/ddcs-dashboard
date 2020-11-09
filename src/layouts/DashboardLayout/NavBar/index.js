@@ -46,6 +46,9 @@ const catalogs = [
     icon: PlusCircleIcon,
     title: 'Add'
   },
+
+];
+/*
   {
     href: '/cat/edit',
     icon: CheckCircleIcon,
@@ -56,20 +59,8 @@ const catalogs = [
     icon: XCircleIcon,
     title: 'Retire'
   },
-];
 
-const acquisitions = [
-  {
-    href: '/acq/search',
-    icon: SearchIcon,
-    title: 'Search'
-  },
-  {
-    href: '/acq/add',
-    icon: PlusCircleIcon,
-    title: 'Add'
-  },
-  {
+    {
     href: '/acq/edit',
     icon: CheckCircleIcon,
     title: 'Edit'
@@ -78,6 +69,24 @@ const acquisitions = [
     href: '/acq/retire',
     icon: XCircleIcon,
     title: 'Retire'
+  },
+
+  {
+    href: '/dep/edit',
+    icon: CheckCircleIcon,
+    title: 'Edit'
+  },
+  {
+    href: '/dep/retire',
+    icon: XCircleIcon,
+    title: 'Retire'
+  },
+*/
+const acquisitions = [
+  {
+    href: '/acq/search',
+    icon: SearchIcon,
+    title: 'Search'
   },
   {
     href: '/acq/datasetprofile',
@@ -96,21 +105,6 @@ const depostories = [
     href: '/dep/search',
     icon: SearchIcon,
     title: 'Search'
-  },
-  {
-    href: '/dep/add',
-    icon: PlusCircleIcon,
-    title: 'Add'
-  },
-  {
-    href: '/dep/edit',
-    icon: CheckCircleIcon,
-    title: 'Edit'
-  },
-  {
-    href: '/dep/retire',
-    icon: XCircleIcon,
-    title: 'Retire'
   },
   {
     href: '/dep/profile',

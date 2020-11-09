@@ -408,9 +408,7 @@ const AcquireCatalogComponent = ({ className,catalogId, ...rest }) => {
      <>
         <Card>
         {resp.respMsg && <CardHeader title={resp.message} />}
-            <CardHeader title={'Setup Data Acquisition Catalog: ' + catalogId} />
-            <Divider ></Divider>
-            <CardHeader subheader='Catalog Info' />
+            <CardHeader title='Manage Dataset Acquisition' />
                             <Divider />
                             <CardContent>
                                 <Grid container spacing={3}>
